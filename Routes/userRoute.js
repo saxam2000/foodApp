@@ -4,6 +4,7 @@ const {JWT_SECRET_KEY}=require("../secrets");
 // const app = express();
 const UserRouter = express.Router();
 const jwt=require("jsonwebtoken");
+const protectRoute=require("./authHelper")
 
 // app.use("/api/user", UserRouter);
 UserRouter
@@ -16,24 +17,6 @@ UserRouter
 .get(getUserById)
 .patch(updateUser)
 .delete(deletUser);
-
- let flag=true;;
-
-
-function protectRoute(req,res,next){
-  if(!req.cookies){
-    return res.status(401).json({
-      message:"Unauthorized access",
-    })
-  }
-  if(jwt.verify(req.cookies.test,JWT_SECRET_KEY)){
-    next();
-  }else{
-    return res.status(401).json({
-      message:"Unauthorized access",
-    })
-  }
-}
 
  
 function createUser(req, res) {

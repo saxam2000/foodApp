@@ -1,6 +1,7 @@
 const mongoose=require("mongoose");
 let {DB_Link}=require("../secrets");
 let emailValidator=require("email-validator")
+var uniqueValidator = require('mongoose-unique-validator')
 mongoose.connect(DB_Link).then(function(db){
     // console.log(db);
     console.log("connected to db");
@@ -13,9 +14,10 @@ const userSchema=new mongoose.Schema({
         type:String,
         required : true,
     },
+    
     email:{
         type:String,
-        required:true,
+        required: true, unique: true,
         validate:function(){
             return emailValidator.validate(this.email);
         },
@@ -37,8 +39,17 @@ const userSchema=new mongoose.Schema({
     },
     createdAt:{
         type:String,
-    }
+    },
+    token:String,
 })
+userSchema.methods.resetHandler=function(Password,confirmPassword){
+    this.Password=Password;
+    this.confirmPassword=confirmPassword;
+    this.token=undefined;
+    // user.save();
+    
+}
+userSchema.plugin(uniqueValidator)
 userSchema.pre("save",function(){
     this.confirmPassword=undefined;
 })
