@@ -1,8 +1,8 @@
 const mongoose=require("mongoose");
-let {DB_Link}=require("../secrets");
+let {DB_LINK}=require("../secrets");
 let emailValidator=require("email-validator")
 var uniqueValidator = require('mongoose-unique-validator')
-mongoose.connect(DB_Link).then(function(db){
+mongoose.connect(DB_LINK).then(function(db){
     // console.log(db);
     console.log("connected to db");
 }).catch(function(err){
@@ -41,6 +41,11 @@ const userSchema=new mongoose.Schema({
         type:String,
     },
     token:String,
+    role:{
+        type:String,
+        enum:["user","admin","manager"],
+        default:"user",
+    }
 })
 userSchema.methods.resetHandler=function(Password,confirmPassword){
     this.Password=Password;

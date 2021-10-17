@@ -21,13 +21,20 @@ module.exports = async function main(otp) {
   });
 
   // send mail with defined transport object
+  try{
+
+  
   let info = await transporter.sendMail({
     from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: "saxamdhyani1999@gmail.com, baz@example.com", // list of receivers
+    to: "saxamdhyani1999@gmail.com, princevr0@gmail.com", // list of receivers
     subject: "Hello ✔", // Subject line
     text: "Hello world?", // plain text body
     html: `<b>Hello world?  ${otp}</b>`, // html body
   });
+  } 
+  catch(err){
+    console.log(err);
+  }
 
   console.log("Message sent: %s", info.messageId);
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>

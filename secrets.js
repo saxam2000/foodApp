@@ -1,5 +1,5 @@
 module.exports = {
-DB_Link:"mongodb+srv://Saksham:Severity1234@cluster0.ss39k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-JWT_SECRET_KEY:"anySecretKey",
+DB_LINK:"mongodb+srv://Saksham:Severity1234@cluster0.ss39k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+JWT_KEY:"anySecretKey",
 APP_PASSWORD:"ajhezblqjnmsiigf"
 }

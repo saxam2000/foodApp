@@ -1,8 +1,11 @@
 const jwt = require("jsonwebtoken");
+const cookieParser=require("cookie-parser");
+const express = require('express');
+express().use(cookieParser());
 const { JWT_KEY } = require("../secrets");
 // ahead -> protect that route 
 function protectRoute(req, res, next) {
-    // console.log(req.cookies)
+    // console.log(req.cookies,"   aa gya")
     try {
         if (req.cookies.jwt) {
             let decrytptedToken = jwt.verify(req.cookies.jwt, JWT_KEY);
@@ -12,7 +15,7 @@ function protectRoute(req, res, next) {
             }
         } else {
             res.status(401).json({
-                message: "You are not allowed"
+                message: "You are not allowed jwt token"
             })
         }
     } catch (err) {
