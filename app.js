@@ -16,12 +16,14 @@ const authRouter = require("./Routers/authRouter");
 const userRouter = require("./Routers/userRouter");
 const planRouter = require("./Routers/planRouter");
 const reviewRouter = require("./Routers/reviewRouter");
+const bookingRouter=require("./Routers/bookingRouter")
 // /api/user/:id
 app.use("/api/plan", planRouter);
 app.use('/api/user', userRouter);
 // auth router -> verb 
 app.use("/api/auth", authRouter);
 app.use("/api/review", reviewRouter);
+app.use("/api/booking", bookingRouter);
 
 app.listen(3000, function () {
     console.log("server started at http://localhost:8080");

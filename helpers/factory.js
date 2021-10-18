@@ -149,3 +149,21 @@ module.exports.getElementById = function (ElementModel) {
 
     }
 }
+module.exports.getElement = function (ElementModel) {
+    return async function getElementById(req, res) {
+        try {
+            let id = req.params.id;
+            let element = await ElementModel.findbyId(id);
+
+            res.status(200).json({
+                element: element
+            });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({
+                message: "Server error",
+            });
+        }
+
+    }
+}
