@@ -18,7 +18,7 @@ userRouter
 // ****************************************************
 userRouter
     .route("/")
-    .get(protectRoute, authorizeUser(["admin"]), getUsers)
+    .get(protectRoute, getUsers)
     .post(
         protectRoute, authorizeUser(["admin"]), createUser
     )
@@ -83,15 +83,20 @@ userRouter
 // Logic ??
 function authorizeUser(rolesArr) {
     return async function (req, res, next) {
-        let uid = req.uid;
-        let { role } = await userModel.findById(uid);
-        let isAuthorized = rolesArr.includes(role);
-        if (isAuthorized) {
-            next();
-        } else {
-            res.status(403).json({
-                message: "user not authorized contact admin"
-            })
+        try{
+
+            let uid = req.uid;
+            let { role } = await userModel.findById(uid);
+            let isAuthorized = rolesArr.includes(role);
+            if (isAuthorized) {
+                next();
+            } else {
+                res.status(403).json({
+                    message: "user not authorized contact admin"
+                })
+            }
+        }catch(err){
+            console.log("error at userRouter",err.message);
         }
 
     }

@@ -7,6 +7,7 @@ let emailSender = require("../helpers/emailSender");
 authRouter
     .post("/signup", setCreatedAt, signupUser)
     .post("/login", loginUser)
+    .get("/login",GetLogin)
     .post("/forgetPassword", forgetPassword)
     .post("/resetPassword", resetPassword)
 
@@ -24,6 +25,14 @@ function setCreatedAt(req, res, next) {
     //     text: "Bye bye "
     // })
     next();
+}
+
+function GetLogin(req,res){
+    return res.status(400).json({
+        message:"aa gaya login page peeee.."
+    })
+
+
 }
 // let flag = true;
 // authRouter.get("/private",fn1,fn2)
