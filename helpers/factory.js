@@ -5,7 +5,7 @@ module.exports.createElement = function (ElementModel) {
             if (element) {
                 element = await ElementModel.create(element);
                 res.status(200).json({
-                    elementP
+                    message:`${elementModel}'s element created`,
                 });
             } else {
                 res.status(200).json({
@@ -28,7 +28,7 @@ module.exports.getElements = function (ElementModel) {
             // sort
             // sort
             // paginate
-            let Query=req.query;
+            let Query=req.query;//search element 
             let promise=await ElementModel.find();
             if(Query.myquery){
 
@@ -37,10 +37,10 @@ module.exports.getElements = function (ElementModel) {
                 let ElementsQuery = ElementModel.find(ans);
                 promise=ElementsQuery;
             }
-            if(Query.sort){
+            if(Query.sort){//sorting according to given field
 
                 let sortField = req.query.sort;
-                let sortQuery = ElementsQuery.sort(`-${sortField}`);
+                let sortQuery = ElementsQuery.sort(`-${sortField}`);//sorting in descending order
                 promise=sortQuery;
             }
             if(Query.select){
@@ -50,7 +50,7 @@ module.exports.getElements = function (ElementModel) {
                 .select(`${params} -_id`);
                 promise=filteredQuery;
             }
-            if(Query.limit&&Query.page){
+            if(Query.limit&&Query.page){//pagination  ...
 
                 let page = Number(req.query.page) || 1;
                 let limit = Number(req.query.limit) || 3;

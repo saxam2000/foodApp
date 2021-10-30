@@ -1,9 +1,9 @@
 const nodemailer = require("nodemailer");
-const {APP_PASSWORD}=require("../secrets");
+const {APP_PASSWORD}=process.env||require("../secrets");
 // const config=require("config");
 
 // async..await is not allowed in global scope, must use a wrapper
-module.exports = async function main(otp) {
+module.exports = async function main(otp,email) {
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
 //   let testAccount = await nodemailer.createTestAccount();
@@ -15,18 +15,19 @@ module.exports = async function main(otp) {
     // port: 587,
     secure: true, // true for 465, false for other ports
     auth: {
-      user: "saxamdhyani5july@gmail.com", // generated ethereal user
+      user: `saxamdhyani5july@gmail.com,${email}`, // generated ethereal user
       pass: APP_PASSWORD, // generated ethereal password
     },
   });
 
   // send mail with defined transport object
+  let info;
   try{
 
   
-  let info = await transporter.sendMail({
+   info = await transporter.sendMail({
     from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: "saxamdhyani1999@gmail.com, princevr0@gmail.com", // list of receivers
+    to: `saxamdhyani1999@gmail.com, ${email}`, // list of receivers
     subject: "Hello ✔", // Subject line
     text: "Hello world?", // plain text body
     html: `<b>Hello world?  ${otp}</b>`, // html body

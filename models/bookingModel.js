@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { DB_LINK } = require("../secrets");
+const { DB_LINK } = process.env||require("../secrets");
 
 mongoose.connect(DB_LINK, {
     useNewUrlParser: true,
@@ -28,7 +28,7 @@ const bookingSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ["pending", "failed", "sucess"],
+        enum: ["pending", "failed", "success"],
         required: true,
         default: "pending"
     }

@@ -1,7 +1,7 @@
 const userModel = require("../models/userModel");
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const { JWT_KEY } = require("../secrets");
+const { JWT_KEY } = process.env||require("../secrets");
 const authRouter = express.Router();
 let emailSender = require("../helpers/emailSender");
 authRouter
@@ -147,13 +147,13 @@ async function forgetPassword(req, res) {
     }
 }
 async function resetPassword(req, res) {
-    let { token, password, confirmPassword } = req.body;
+    let { token, Password, confirmPassword } = req.body;
     try {
         if (token) {
             // findOne
             let user = await userModel.findOne({ token });
             if (user) {
-                user.resetHandler(password, confirmPassword);
+                user.resetHandler(Password, confirmPassword);
                 // user.password = password;
                 // user.confirmPassword = confirmPassword;
                 // token reuse is not possible
