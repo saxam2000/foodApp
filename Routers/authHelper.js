@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const cookieParser=require("cookie-parser");
 const express = require('express');
 express().use(cookieParser());
-const { JWT_KEY } = require("../secrets");
+const { JWT_KEY } = process.env||require("../secrets");
 // ahead -> protect that route 
 function protectRoute(req, res, next) {
     // console.log(req.cookies,"   aa gya")
