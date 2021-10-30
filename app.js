@@ -26,5 +26,5 @@ app.use("/api/review", reviewRouter);
 app.use("/api/booking", bookingRouter);
 
 app.listen(process.env.PORT||3000, function () {
-    console.log("server started at http://localhost:8080");
+    console.log("server started at http://localhost:3000");
 })

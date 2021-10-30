@@ -1,4 +1,4 @@
-const userModel = require("../models/userModel");
+const userModel = require("../model/userModel");
 const express = require('express');
 const cookieParser=require("cookie-parser");
 express().use(cookieParser());

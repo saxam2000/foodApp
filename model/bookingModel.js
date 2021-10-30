@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
-const { DB_LINK } = process.env||require("../secrets");
+let DB_LINK;
+if(process.env.DB_LINK){
+   DB_LINK=process.env.DB_LINK
+}else{
+DB_LINK  = require("../secrets").DB_LINK;
+}
 
 mongoose.connect(DB_LINK, {
     useNewUrlParser: true,
