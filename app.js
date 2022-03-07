@@ -2,6 +2,8 @@
 // npm i express
 // npm i nodemon -g 
 const express = require("express");
+const mongoose = require("mongoose");
+// var mongoose = require('./mongoconnection');
 // Server: // route  -> request -> response/file 
 // File system// path -> interact/type -> file /folder
 // server init

@@ -5,7 +5,7 @@ const express = require("express");
 const ReviewRouter = express.Router();
 const ReviewModel = require("../model/reviewModel");
 const PlanModel = require("../model/planModel");
-const { protectRoute } = require("./utilFns")
+const { protectRoute } = require("./utilFns");
 const {
     getElement, getElements,
     updateElement,

@@ -2,17 +2,34 @@ const express = require("express");
 
 // router
 const bookingRouter = express.Router();
-// const bookingModel = require("../models/bookingModel");
-// const UserModel = require("../models/userModel");
-// const { protectRoute } = require("./authHelper");
-// const {
-//   getElement,
-//   getElements,
-//   updateElement,
-// } = require("../helpers/factory");
-// const updatebooking = updateElement(bookingModel);
-// const getbookingById = getElement(bookingModel);
-// const getbookings = getElements(bookingModel);
+const bookingModel = require("../model/bookingModel");
+const UserModel = require("../model/userModel");
+const { protectRoute } = require("./authHelper");
+const {
+  createElement,
+  getElement,
+  getElements,
+  updateElement,
+  deleteElement
+} = require("../helpers/factory");
+const createBooking=createElement(bookingModel);
+const updatebooking = updateElement(bookingModel);
+const getbookingById = getElement(bookingModel);
+const getbookings = getElements(bookingModel);
+const deletebookings = deleteElement(bookingModel);
+
+bookingRouter
+.route("/:id")
+.get(getbookingById)
+.patch(updatebooking)
+.delete(deletebookings)
+
+bookingRouter
+.route("/")
+.get(getbookings)
+.post(createBooking)
+.patch(updatebooking)
+.delete(deletebookings)
 
 
 // const Razorpay = require("razorpay");
@@ -77,33 +94,33 @@ const bookingRouter = express.Router();
 //   }
 // };
 
-// const deletebooking = async function (req, res) {
-//   try {
-//       let booking = await bookingModel.findByIdAndDelete(req.body.id);
-//       console.log("booking", booking);
-//       let userId = booking.user;
-//       let user = await userModel.findById(userId);
-//       let idxOfbooking = user.bookings.indexOf(booking["_id"]);
-//       user.booking.splice(idxOfbooking, 1);
-//       await user.save();
-//       res.status(200).json({
-//           message: "booking deleted",
-//           booking: booking
-//       })
-//   } catch (err) {
-//       res.status(500).json({
-//           message: err.message
-//       })
-//   }
-// };
-// // deletebooking
+const deletebooking = async function (req, res) {
+  try {
+      let booking = await bookingModel.findByIdAndDelete(req.body.id);
+      console.log("booking", booking);
+      let userId = booking.user;
+      let user = await userModel.findById(userId);
+      let idxOfbooking = user.bookings.indexOf(booking["_id"]);
+      user.booking.splice(idxOfbooking, 1);
+      await user.save();
+      res.status(200).json({
+          message: "booking deleted",
+          booking: booking
+      })
+  } catch (err) {
+      res.status(500).json({
+          message: err.message
+      })
+  }
+};
+// deletebooking
 // bookingRouter.route("/verification").post(verifyPayment)
 // bookingRouter
 //   .route("/:id")
-//   .get(getbooking)
+//   .get(getbookings)
 //   .patch(protectRoute, updatebooking)
 //   .delete(protectRoute, deletebooking)
-// // ****************************************************
+// ****************************************************
 // bookingRouter
 //   .route("/")
 //   .get(getbookings)

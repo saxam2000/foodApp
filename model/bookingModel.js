@@ -18,10 +18,12 @@ mongoose.connect(DB_LINK, {
 const bookingSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.ObjectId,
+        ref:"userModel",
         required: true,
     },
     plan: {
         type: mongoose.Schema.ObjectId,
+        ref:"planModel",
         required: true,
     },
     bookedAt: {

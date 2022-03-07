@@ -5,7 +5,7 @@ module.exports.createElement = function (ElementModel) {
             if (element) {
                 element = await ElementModel.create(element);
                 res.status(200).json({
-                    message:`${elementModel}'s element created`,
+                    message:`${ElementModel}'s element created`,
                 });
             } else {
                 res.status(200).json({
@@ -112,7 +112,7 @@ module.exports.deleteElement = function (ElementModel) {
     return async function deletePlan(req, res) {
         let { id } = req.body;
         try {
-            let element = await ElementModel.finByIdAndDelete(id, req.body);
+            let element = await ElementModel.findByIdAndDelete(id, req.body);
             // let element = await ElementModel.findOne({ _id: id });
             if (!element) {
                 res.status(404).json({

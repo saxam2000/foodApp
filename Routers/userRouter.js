@@ -18,7 +18,7 @@ userRouter
 // ****************************************************
 userRouter
     .route("/")
-    .get( getUsers)
+    .get( protectRoute, authorizeUser(["admin"]),getUsers)
     .post(
         protectRoute, authorizeUser(["admin"]), createUser
     )

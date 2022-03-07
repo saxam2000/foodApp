@@ -7,17 +7,17 @@ const { JWT_KEY } = process.env||require("../secrets");
 function protectRoute(req, res, next) {
     // console.log(req.cookies,"   aa gya")
     try {
-        next();
-        // if (req.cookies.jwt) {
-        //     let decrytptedToken = jwt.verify(req.cookies.jwt, JWT_KEY);
-        //     if (decrytptedToken) {
-        //         req.uid = decrytptedToken.id;
-        //     }
-        // } else {
-        //     res.status(401).json({
-        //         message: "You are not allowed jwt token"
-        //     })
-        // }
+        if (req.cookies.jwt) {
+            let decrytptedToken = jwt.verify(req.cookies.jwt, JWT_KEY);
+            if (decrytptedToken) {
+                req.uid = decrytptedToken.id;
+                next();
+            }
+        } else {
+            res.status(401).json({
+                message: "You are not allowed jwt token"
+            })
+        }
     } catch (err) {
         res.status(500).json({
             message: "server error"
